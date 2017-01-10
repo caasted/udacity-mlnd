@@ -8,7 +8,7 @@ class LearningAgent(Agent):
     """ An agent that learns to drive in the Smartcab world.
         This is the object you will be modifying. """ 
 
-    def __init__(self, env, learning=True, epsilon=1.0, alpha=0.5):
+    def __init__(self, env, learning=False, epsilon=1.0, alpha=0.5):
         super(LearningAgent, self).__init__(env)     # Set the agent in the evironment 
         self.planner = RoutePlanner(self.env, self)  # Create a route planner
         self.valid_actions = self.env.valid_actions  # The set of valid actions
@@ -23,6 +23,7 @@ class LearningAgent(Agent):
         ## TO DO ##
         ###########
         # Set any additional class parameters as needed
+        self.trial = 0
 
 
     def reset(self, destination=None, testing=False):
@@ -43,8 +44,23 @@ class LearningAgent(Agent):
             self.epsilon = 0.
             self.alpha = 0.
         else:
-            self.epsilon = self.epsilon - 0.05
+            self.trial = self.trial + 1
+            length = 2000
+            
+            # self.epsilon = self.epsilon - 0.05
+            
+            # self.epsilon = (.01 ** (1. / length)) ** self.trial
+            # Decreases too fast
 
+            # self.epsilon = 1. / self.trial ** 2
+            # Not adjustable as written
+
+            self.epsilon = math.exp(math.log(0.01) * self.trial / length)
+            # This curve appears to be the most useful for balancing exploration and exploitation
+
+            # self.epsilon = math.cos(math.pi / (2 * length) * self.trial)
+            # Stays high for too long
+            
         return None
 
     def build_state(self):
@@ -77,13 +93,14 @@ class LearningAgent(Agent):
 
         maxQ = None
 
-        max_score = 0.
+        max_score = -float('inf')
         for key in self.Q[state]:
-            if self.Q[state][key] > max_score:
-                max_score = self.Q[state][key]
+            action_score = self.Q[state][key]
+            if action_score > max_score:
+                max_score = action_score
                 maxQ = key
 
-        return maxQ 
+        return maxQ
 
 
     def createQ(self, state):
@@ -118,7 +135,7 @@ class LearningAgent(Agent):
         # When learning, choose a random action with 'epsilon' probability
         #   Otherwise, choose an action with the highest Q-value for the current state
         if self.learning and random.random() > self.epsilon:
-            self.get_maxQ(state)
+            action = self.get_maxQ(state)
         else:
             action = random.choice(self.valid_actions)
  
@@ -136,12 +153,9 @@ class LearningAgent(Agent):
         # When learning, implement the value iteration update rule
         #   Use only the learning rate 'alpha' (do not use the discount factor 'gamma')
 
-        print state
-        print action
-        print self.Q[state][action]
-        print reward
-        self.Q[state][action] = self.Q[state][action] + self.alpha * reward
-
+        self.Q[state][action] = (self.Q[state][action] + 
+                                self.alpha * (reward - self.Q[state][action]))
+        
         return
 
 
@@ -177,7 +191,7 @@ def run():
     #   learning   - set to True to force the driving agent to use Q-learning
     #    * epsilon - continuous value for the exploration factor, default is 1
     #    * alpha   - continuous value for the learning rate, default is 0.5
-    agent = env.create_agent(LearningAgent)
+    agent = env.create_agent(LearningAgent, learning=True, epsilon=1.0, alpha=0.5)
     
     ##############
     # Follow the driving agent
@@ -192,14 +206,14 @@ def run():
     #   display      - set to False to disable the GUI if PyGame is enabled
     #   log_metrics  - set to True to log trial and simulation results to /logs
     #   optimized    - set to True to change the default log file name
-    sim = Simulator(env, update_delay=0.01, log_metrics=True)
+    sim = Simulator(env, update_delay=0.0001, display=False, log_metrics=True, optimized=True)
     
     ##############
     # Run the simulator
     # Flags:
     #   tolerance  - epsilon tolerance before beginning testing, default is 0.05 
     #   n_test     - discrete number of testing trials to perform, default is 0
-    sim.run(n_test=10)
+    sim.run(tolerance=0.01, n_test=100)
 
 
 if __name__ == '__main__':
