@@ -10,4 +10,4 @@ clf = load_model('SVHN-1.h5')
 evaluate = clf.evaluate(photos_dataset, [photos_sequences, photos_labels[:,:,0], photos_labels[:,:,1], 
                             photos_labels[:,:,2], photos_labels[:,:,3], photos_labels[:,:,4]])
 print("\n", evaluate)
-print("\n", getAccuracy(clf, photos_dataset, photos_sequences, photos_labels))
+print("\n", accuracy(clf, photos_dataset, photos_sequences, photos_labels))
