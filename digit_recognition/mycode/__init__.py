@@ -1,1 +1,1 @@
-__all__ = ["accuracy", "generateNewMNIST"]
+__all__ = ["eval", "genMNIST"]

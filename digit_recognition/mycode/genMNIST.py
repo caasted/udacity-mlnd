@@ -1,6 +1,7 @@
 import numpy as np
+from scipy.misc import imresize
 
-def generateNewMNIST(source_data, source_labels, sequences, max_sequence_length=5, option=1, insert_blanks=True):
+def generateData(source_data, source_labels, sequences, max_sequence_length=5, option=1, insert_blanks=True):
 
     num_labels = 11 # 0-9 + blank
     image_size = 28
