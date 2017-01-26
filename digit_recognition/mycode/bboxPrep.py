@@ -13,7 +13,7 @@ with open(pickle_file, 'rb') as f:
 print("Train dictionary:", len(train_dictionary))
 print("Test dictionary:", len(test_dictionary))
 
-rain_dataset, train_labels, train_sequences, train_bboxes = genBBox.generateData('train', train_dictionary)
+train_dataset, train_labels, train_sequences, train_bboxes = genBBox.generateData('train', train_dictionary)
 test_dataset, test_labels, test_sequences, test_bboxes = genBBox.generateData('test', test_dictionary)
 print("Done.")
 
