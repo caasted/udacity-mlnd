@@ -1,1 +1,1 @@
-__all__ = ["eval", "genMNIST", "genSVHN", "genSVHNdict"]
+__all__ = ["newEval", "genMNIST", "genSVHN", "genSVHNdict", "genBBox"]

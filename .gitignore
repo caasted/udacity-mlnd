@@ -5,6 +5,7 @@
 # Dataset files
 *.tar.gz
 *.png
+*.JPG
 *.mat
 *.m
 

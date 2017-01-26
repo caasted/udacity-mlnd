@@ -2,38 +2,50 @@ from keras.models import Model
 from keras.layers import Dense, Dropout, Activation, Flatten
 from keras.layers import Input, Convolution2D, MaxPooling2D
 from keras.layers.normalization import BatchNormalization
+import numpy as np
 from six.moves import cPickle as pickle
+import h5py
 
-pickle_file = 'MNIST-1.pickle'
+pickle_file = 'SVHN-BB-1.pickle'
+
 with open(pickle_file, 'rb') as f:
-	save = pickle.load(f)
-	train_dataset = save['train_dataset']
-	train_labels = save['train_labels']
-	train_sequences = save['train_sequences']
-	test_dataset = save['test_dataset']
-	test_labels = save['test_labels']
-	test_sequences = save['test_sequences']
-	del save  # hint to help gc free up memory
+  save = pickle.load(f)
+  train_dataset = save['train_dataset']
+  train_labels = save['train_labels']
+  train_sequences = save['train_sequences']
+  train_bboxes = save['train_bboxes']
+  test_dataset = save['test_dataset']
+  test_labels = save['test_labels']
+  test_sequences = save['test_sequences']
+  test_bboxes = save['test_bboxes']
+  del save  # hint to help gc free up memory
 
-print('Training set:', train_dataset.shape, train_labels.shape, train_sequences.shape)
-print('Test set:', test_dataset.shape, test_labels.shape, test_sequences.shape)
-
-# Model adapted from "VGG-like convnet" at https://keras.io/getting-started/sequential-model-guide/
-# and extended to mimic the Google Mult-digit classifier
-
-image_size = 28
+image_size = 32
+num_channels = 1
 num_labels = 11
-max_sequence_length=5
-num_channels = 1 # grayscale
+max_sequence_length = 5
+bbox_dims = 5
+
+print('Training set', train_dataset.shape, train_labels.shape, train_sequences.shape, train_bboxes.shape)
+print('Test set', test_dataset.shape, test_labels.shape, test_sequences.shape, test_bboxes.shape)
+
+print('Training sequence distribution:', sum(train_sequences))
+print('Testing sequence distribution:', sum(test_sequences))
+
+print('\n\n', sum(train_labels))
+print('\n\n', sum(test_labels))
+
+print('\n\nTrain bounding box means:', np.mean(train_bboxes))
+print('Test bounding box means:', np.mean(test_bboxes))
 
 inputs = Input(shape=(num_channels, image_size, image_size))
 
-c1 = Convolution2D(64, 5, 5, border_mode='same')(inputs)
+c1 = Convolution2D(64, 5, 5, border_mode='same')(inputs) # Originally 48
 a1 = Activation('relu')(c1)
 mp1 = MaxPooling2D(pool_size=(2, 2), strides=(1, 1), border_mode='same')(a1)
 bn1 = BatchNormalization()(mp1)
 
-c2 = Convolution2D(96, 5, 5, border_mode='same')(bn1)
+c2 = Convolution2D(96, 5, 5, border_mode='same')(bn1) # Originally 64
 a2 = Activation('relu')(c2)
 mp2 = MaxPooling2D(pool_size=(2, 2), strides=(2, 2), border_mode='same')(a2)
 do2 = Dropout(0.25)(mp2)
@@ -77,7 +89,7 @@ bn8 = BatchNormalization()(do8)
 
 fl = Flatten()(bn8)
 
-d1 = Dense(1024)(fl)
+d1 = Dense(3096)(fl)
 a9 = Activation('relu')(d1)
 do9 = Dropout(0.25)(a9)
 bn9 = BatchNormalization()(do9)
@@ -106,14 +118,20 @@ d8 = Dense(num_labels)(bn9)
 bn15 = BatchNormalization()(d8)
 S5 = Activation('softmax')(bn15)
 
-clf = Model(input=inputs, output=[L, S1, S2, S3, S4, S5]) # Seq length + five channel output
+d9 = Dense(bbox_dims * max_sequence_length)(bn9)
+bn16 = BatchNormalization()(d9)
+BB = Activation('sigmoid')(bn16)
 
-clf.compile(loss='categorical_crossentropy', optimizer='adadelta', 
-            metrics=['categorical_accuracy'])
+clf = Model(input=inputs, output=[L, S1, S2, S3, S4, S5, BB]) # Seq length + five channel output + bounding box
+
+clf.compile(loss=['categorical_crossentropy', 'categorical_crossentropy', 'categorical_crossentropy', 
+                  'categorical_crossentropy', 'categorical_crossentropy', 'categorical_crossentropy', 
+                  'mean_squared_error'], optimizer='adadelta', metrics=['categorical_accuracy'])
 
 clf.fit(train_dataset, [train_sequences, train_labels[:,:,0], train_labels[:,:,1], train_labels[:,:,2], 
-                        train_labels[:,:,3], train_labels[:,:,4]], batch_size=100, 
-                        nb_epoch=14, validation_split=0.03, verbose=2)
+                        train_labels[:,:,3], train_labels[:,:,4], train_bboxes], 
+                        batch_size=100, nb_epoch=1, validation_split=0.03, verbose=0)
 
-clf.save('MNIST-1.h5')
+clf.save('SVHN-BB-2.h5')
 
+print("Training complete.")
