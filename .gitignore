@@ -1,3 +1,7 @@
+# Pickle and H5 (large files)
+*.pickle
+*.h5
+
 # macOS files
 .DS_Store
 
