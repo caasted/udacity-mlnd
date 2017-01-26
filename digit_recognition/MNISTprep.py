@@ -2,12 +2,13 @@ from keras.datasets import mnist
 import numpy as np
 from six.moves import cPickle as pickle
 from mycode import genMNIST
+import os
 
 (X_train, y_train), (X_test, y_test) = mnist.load_data()
 print(X_train.shape, y_train.shape)
 print(X_test.shape, y_test.shape)
 
-new_train_dataset, new_train_labels, train_sequences = genMNIST.generateData(X_train, y_train, 5000000, 5)
+new_train_dataset, new_train_labels, train_sequences = genMNIST.generateData(X_train, y_train, 1000000, 5)
 new_test_dataset, new_test_labels, test_sequences = genMNIST.generateData(X_test, y_test, 30000, 5)
 
 print("Generating sequence data complete.")
