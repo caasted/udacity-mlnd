@@ -2,7 +2,6 @@ from keras.models import Model
 from keras.layers import Dense, Dropout, Activation, Flatten
 from keras.layers import Input, Convolution2D, MaxPooling2D
 from keras.layers.normalization import BatchNormalization
-
 from six.moves import cPickle as pickle
 
 pickle_file = 'MNIST-1.pickle'
