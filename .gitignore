@@ -2,6 +2,12 @@
 *.pickle
 *.h5
 
+# Dataset files
+*.tar.gz
+*.png
+*.mat
+*.m
+
 # macOS files
 .DS_Store
 

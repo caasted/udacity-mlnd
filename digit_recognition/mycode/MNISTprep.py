@@ -1,8 +1,8 @@
 from keras.datasets import mnist
 import numpy as np
 from six.moves import cPickle as pickle
-from mycode import genMNIST
 import os
+import genMNIST
 
 (X_train, y_train), (X_test, y_test) = mnist.load_data()
 print(X_train.shape, y_train.shape)

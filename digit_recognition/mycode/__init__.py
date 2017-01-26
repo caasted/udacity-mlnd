@@ -1,1 +1,1 @@
-__all__ = ["eval", "genMNIST"]
+__all__ = ["eval", "genMNIST", "genSVHN", "genSVHNdict"]
