@@ -119,7 +119,7 @@ clf.compile(loss='categorical_crossentropy', optimizer='adadelta',
 
 clf.fit(train_dataset, [train_sequences, train_labels[:,:,0], train_labels[:,:,1], train_labels[:,:,2], 
                         train_labels[:,:,3], train_labels[:,:,4]], 
-                        batch_size=100, nb_epoch=1, validation_split=0.03, verbose=2)
+                        batch_size=100, nb_epoch=250, validation_split=0.03, verbose=2)
 
 clf.save('SVHN-1.h5')
 print("Training complete.")
