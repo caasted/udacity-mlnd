@@ -27,7 +27,7 @@ def generateData(folder, dictionary):
             label_sequence = None
             skipped_images += 1
             
-        if len(label_sequence) > max_sequence_length:
+        if label_sequence != None and len(label_sequence) > max_sequence_length:
             label_sequence = None
             skipped_images += 1
             print("Image", image, "has too many digits!")
