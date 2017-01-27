@@ -110,7 +110,7 @@ clf.compile(loss='categorical_crossentropy', optimizer='adadelta',
 
 clf.fit(train_dataset, [train_sequences, train_labels[:,:,0], train_labels[:,:,1], train_labels[:,:,2], 
                         train_labels[:,:,3], train_labels[:,:,4]], batch_size=256, 
-                        nb_epoch=3, validation_split=0.03, verbose=2)
+                        nb_epoch=3, validation_split=0.06, verbose=2)
 
 clf.save('MNIST-1.h5')
 print "Training complete."
