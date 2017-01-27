@@ -1,6 +1,7 @@
 from keras.models import Model, load_model
 from six.moves import cPickle as pickle
 import modelEval
+import genNew
 
 pickle_file = 'SVHN-BB-1.pickle'
 
