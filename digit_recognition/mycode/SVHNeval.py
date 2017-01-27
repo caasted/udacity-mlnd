@@ -3,7 +3,7 @@ from six.moves import cPickle as pickle
 import modelEval
 import genPhotos
 
-def evaluate(bboxes=False):
+def evaluate(bboxes=False, notebook=False):
 	pickle_file = 'SVHN-1.pickle'
 
 	with open(pickle_file, 'rb') as f:
@@ -25,7 +25,10 @@ def evaluate(bboxes=False):
 		print "\n", result
 		print "\nAccuracy on test set:", modelEval.accuracy(clf, test_dataset, test_sequences, test_labels)
 
-		photos_dataset, photos_labels, photos_sequences = genPhotos.generateData('photos')
+		if notebook:
+			photos_dataset, photos_labels, photos_sequences = genPhotos.generateData('mycode/photos')
+		else:
+			photos_dataset, photos_labels, photos_sequences = genPhotos.generateData('photos')
 		print "\nAccuracy on photos:", modelEval.accuracy(clf, photos_dataset, photos_sequences, photos_labels)
 
 	else:
