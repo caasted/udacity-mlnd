@@ -12,9 +12,9 @@ def generateData(folder):
 
     image_files = os.listdir(folder)
 
-    dataset = np.ndarray(shape=(len(image_files), pixel_channels, image_size, image_size), dtype=np.int32)
-    labels = np.ndarray(shape=(len(image_files), num_labels, max_sequence_length), dtype=np.int32)
-    sequences = np.ndarray(shape=(len(image_files), max_sequence_length), dtype=np.int32)
+    dataset = np.ndarray(shape=(len(image_files), pixel_channels, image_size, image_size), dtype=np.float32)
+    labels = np.ndarray(shape=(len(image_files), num_labels, max_sequence_length), dtype=np.bool_)
+    sequences = np.ndarray(shape=(len(image_files), max_sequence_length), dtype=np.bool_)
     
     labels[:, :, :] = 0
     sequences[:, :] = 0

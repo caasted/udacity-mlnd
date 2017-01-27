@@ -14,9 +14,9 @@ def generateData(folder, dictionary):
 
     image_files = os.listdir(folder)
 
-    dataset = np.ndarray(shape=(len(image_files), pixel_channels, image_size, image_size), dtype=np.int32)
-    labels = np.ndarray(shape=(len(image_files), num_labels, max_sequence_length), dtype=np.int32)
-    sequences = np.ndarray(shape=(len(image_files), max_sequence_length), dtype=np.int32)
+    dataset = np.ndarray(shape=(len(image_files), pixel_channels, image_size, image_size), dtype=np.float32)
+    labels = np.ndarray(shape=(len(image_files), num_labels, max_sequence_length), dtype=np.bool_)
+    sequences = np.ndarray(shape=(len(image_files), max_sequence_length), dtype=np.bool_)
     bboxes = np.ndarray(shape=(len(image_files), max_sequence_length * bbox_dims), dtype=np.float32)
     
     num_images = 0
@@ -84,9 +84,6 @@ def generateData(folder, dictionary):
                 print "Skipped zero-size bbox image:", image
                                     
     print '\nSkipped images:', skipped_images
-    # print('Full dataset tensor:', dataset.shape)
-    # print('Mean:', np.mean(dataset))
-    # print('Standard deviation:', np.std(dataset), "\n")
 
     dataset = dataset[0:num_images, :, :, :]
     labels = labels[0:num_images, :, :]

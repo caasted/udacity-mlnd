@@ -4,7 +4,7 @@ from keras.layers import Input, Convolution2D, MaxPooling2D
 from keras.layers.normalization import BatchNormalization
 from six.moves import cPickle as pickle
 
-def trainCovnet(batch_size=256, nb_epoch=3, validation_split=0.03, verbose=2, dense_layer_nodes=3096):
+def trainConvnet(batch_size=256, nb_epoch=3, validation_split=0.03, verbose=2, dense_layer_nodes=3096):
 	pickle_file = 'MNIST-1.pickle'
 	with open(pickle_file, 'rb') as f:
 		save = pickle.load(f)

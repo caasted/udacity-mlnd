@@ -32,4 +32,3 @@ def createDictionary(struct):
         image_bbox = digitStruct_bbox(sample, struct)
         dictionary[image_name] = image_bbox
     return dictionary, len_samples
-
