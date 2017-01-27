@@ -20,7 +20,7 @@ with open(pickle_file, 'rb') as f:
   test_bboxes = save['test_bboxes']
   del save  # hint to help gc free up memory
 
-image_size = 32
+image_size = 54
 num_channels = 1
 num_labels = 11
 max_sequence_length = 5
@@ -40,12 +40,12 @@ print 'Test bounding box means:', np.mean(test_bboxes)
 
 inputs = Input(shape=(num_channels, image_size, image_size))
 
-c1 = Convolution2D(64, 5, 5, border_mode='same')(inputs) # Originally 48
+c1 = Convolution2D(48, 5, 5, border_mode='same')(inputs)
 a1 = Activation('relu')(c1)
 mp1 = MaxPooling2D(pool_size=(2, 2), strides=(1, 1), border_mode='same')(a1)
 bn1 = BatchNormalization()(mp1)
 
-c2 = Convolution2D(96, 5, 5, border_mode='same')(bn1) # Originally 64
+c2 = Convolution2D(64, 5, 5, border_mode='same')(bn1)
 a2 = Activation('relu')(c2)
 mp2 = MaxPooling2D(pool_size=(2, 2), strides=(2, 2), border_mode='same')(a2)
 do2 = Dropout(0.25)(mp2)
@@ -63,31 +63,31 @@ mp4 = MaxPooling2D(pool_size=(2, 2), strides=(2, 2), border_mode='same')(a4)
 do4 = Dropout(0.25)(mp4)
 bn4 = BatchNormalization()(do4)
 
-c5 = Convolution2D(192, 5, 5, border_mode='same')(bn4)
-a5 = Activation('relu')(c5)
-mp5 = MaxPooling2D(pool_size=(2, 2), strides=(1, 1), border_mode='same')(a5)
-do5 = Dropout(0.25)(mp5)
-bn5 = BatchNormalization()(do5)
+# c5 = Convolution2D(192, 5, 5, border_mode='same')(bn4)
+# a5 = Activation('relu')(c5)
+# mp5 = MaxPooling2D(pool_size=(2, 2), strides=(1, 1), border_mode='same')(a5)
+# do5 = Dropout(0.25)(mp5)
+# bn5 = BatchNormalization()(do5)
 
-c6 = Convolution2D(192, 5, 5, border_mode='same')(bn5)
-a6 = Activation('relu')(c6)
-mp6 = MaxPooling2D(pool_size=(2, 2), strides=(2, 2), border_mode='same')(a6)
-do6 = Dropout(0.25)(mp6)
-bn6 = BatchNormalization()(do6)
+# c6 = Convolution2D(192, 5, 5, border_mode='same')(bn5)
+# a6 = Activation('relu')(c6)
+# mp6 = MaxPooling2D(pool_size=(2, 2), strides=(2, 2), border_mode='same')(a6)
+# do6 = Dropout(0.25)(mp6)
+# bn6 = BatchNormalization()(do6)
 
-c7 = Convolution2D(192, 5, 5, border_mode='same')(bn6)
-a7 = Activation('relu')(c7)
-mp7 = MaxPooling2D(pool_size=(2, 2), strides=(1, 1), border_mode='same')(a7)
-do7 = Dropout(0.25)(mp7)
-bn7 = BatchNormalization()(do7)
+# c7 = Convolution2D(192, 5, 5, border_mode='same')(bn6)
+# a7 = Activation('relu')(c7)
+# mp7 = MaxPooling2D(pool_size=(2, 2), strides=(1, 1), border_mode='same')(a7)
+# do7 = Dropout(0.25)(mp7)
+# bn7 = BatchNormalization()(do7)
 
-c8 = Convolution2D(192, 5, 5, border_mode='same')(bn7)
-a8 = Activation('relu')(c8)
-mp8 = MaxPooling2D(pool_size=(2, 2), strides=(2, 2), border_mode='same')(a8)
-do8 = Dropout(0.25)(mp8)
-bn8 = BatchNormalization()(do8)
+# c8 = Convolution2D(192, 5, 5, border_mode='same')(bn7)
+# a8 = Activation('relu')(c8)
+# mp8 = MaxPooling2D(pool_size=(2, 2), strides=(2, 2), border_mode='same')(a8)
+# do8 = Dropout(0.25)(mp8)
+# bn8 = BatchNormalization()(do8)
 
-fl = Flatten()(bn8)
+fl = Flatten()(bn4)
 
 d1 = Dense(3096)(fl)
 a9 = Activation('relu')(d1)

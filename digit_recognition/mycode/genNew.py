@@ -4,7 +4,7 @@ from scipy import ndimage
 from scipy.misc import imresize
 
 def generateData(folder):
-    image_size = 32
+    image_size = 54
     pixel_channels = 1
     max_sequence_length = 5
     num_labels = 11
