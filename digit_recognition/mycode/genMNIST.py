@@ -4,7 +4,7 @@ from scipy.misc import imresize
 def generateData(source_data, source_labels, sequences, max_sequence_length=5, option=1, insert_blanks=True):
 
     num_labels = 11 # 0-9 + blank
-    image_size = 28
+    image_size = 64
 
     new_dataset = np.ndarray((sequences, 1, image_size, image_size), dtype=np.int8)
     new_labels = np.ndarray((sequences, num_labels, max_sequence_length), dtype=np.int8)

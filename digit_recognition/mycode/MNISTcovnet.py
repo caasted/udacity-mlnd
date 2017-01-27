@@ -18,9 +18,9 @@ with open(pickle_file, 'rb') as f:
 print 'Training set:', train_dataset.shape, train_labels.shape, train_sequences.shape
 print 'Test set:', test_dataset.shape, test_labels.shape, test_sequences.shape
 
-image_size = 28
+image_size = 64
 num_labels = 11
-max_sequence_length=5
+max_sequence_length = 5
 num_channels = 1 # grayscale
 
 inputs = Input(shape=(num_channels, image_size, image_size))
@@ -48,29 +48,29 @@ mp4 = MaxPooling2D(pool_size=(2, 2), strides=(2, 2), border_mode='same')(a4)
 do4 = Dropout(0.25)(mp4)
 bn4 = BatchNormalization()(do4)
 
-# c5 = Convolution2D(192, 5, 5, border_mode='same')(bn4)
-# a5 = Activation('relu')(c5)
-# mp5 = MaxPooling2D(pool_size=(2, 2), strides=(1, 1), border_mode='same')(a5)
-# do5 = Dropout(0.25)(mp5)
-# bn5 = BatchNormalization()(do5)
+c5 = Convolution2D(192, 5, 5, border_mode='same')(bn4)
+a5 = Activation('relu')(c5)
+mp5 = MaxPooling2D(pool_size=(2, 2), strides=(1, 1), border_mode='same')(a5)
+do5 = Dropout(0.25)(mp5)
+bn5 = BatchNormalization()(do5)
 
-# c6 = Convolution2D(192, 5, 5, border_mode='same')(bn5)
-# a6 = Activation('relu')(c6)
-# mp6 = MaxPooling2D(pool_size=(2, 2), strides=(2, 2), border_mode='same')(a6)
-# do6 = Dropout(0.25)(mp6)
-# bn6 = BatchNormalization()(do6)
+c6 = Convolution2D(192, 5, 5, border_mode='same')(bn5)
+a6 = Activation('relu')(c6)
+mp6 = MaxPooling2D(pool_size=(2, 2), strides=(2, 2), border_mode='same')(a6)
+do6 = Dropout(0.25)(mp6)
+bn6 = BatchNormalization()(do6)
 
-# c7 = Convolution2D(192, 5, 5, border_mode='same')(bn6)
-# a7 = Activation('relu')(c7)
-# mp7 = MaxPooling2D(pool_size=(2, 2), strides=(1, 1), border_mode='same')(a7)
-# do7 = Dropout(0.25)(mp7)
-# bn7 = BatchNormalization()(do7)
+c7 = Convolution2D(192, 5, 5, border_mode='same')(bn6)
+a7 = Activation('relu')(c7)
+mp7 = MaxPooling2D(pool_size=(2, 2), strides=(1, 1), border_mode='same')(a7)
+do7 = Dropout(0.25)(mp7)
+bn7 = BatchNormalization()(do7)
 
-# c8 = Convolution2D(192, 5, 5, border_mode='same')(bn7)
-# a8 = Activation('relu')(c8)
-# mp8 = MaxPooling2D(pool_size=(2, 2), strides=(2, 2), border_mode='same')(a8)
-# do8 = Dropout(0.25)(mp8)
-# bn8 = BatchNormalization()(do8)
+c8 = Convolution2D(192, 5, 5, border_mode='same')(bn7)
+a8 = Activation('relu')(c8)
+mp8 = MaxPooling2D(pool_size=(2, 2), strides=(2, 2), border_mode='same')(a8)
+do8 = Dropout(0.25)(mp8)
+bn8 = BatchNormalization()(do8)
 
 fl = Flatten()(bn4)
 
@@ -110,7 +110,7 @@ clf.compile(loss='categorical_crossentropy', optimizer='adadelta',
 
 clf.fit(train_dataset, [train_sequences, train_labels[:,:,0], train_labels[:,:,1], train_labels[:,:,2], 
                         train_labels[:,:,3], train_labels[:,:,4]], batch_size=256, 
-                        nb_epoch=80, validation_split=0.03, verbose=2)
+                        nb_epoch=3, validation_split=0.03, verbose=2)
 
 clf.save('MNIST-1.h5')
 print "Training complete."
