@@ -34,24 +34,24 @@ print '\n\n', sum(test_labels)
 
 inputs = Input(shape=(num_channels, image_size, image_size))
 
-c1 = Convolution2D(48, 5, 5, border_mode='same')(inputs)
+c1 = Convolution2D(64, 5, 5, border_mode='same')(inputs)
 a1 = Activation('relu')(c1)
 mp1 = MaxPooling2D(pool_size=(2, 2), strides=(1, 1), border_mode='same')(a1)
 bn1 = BatchNormalization()(mp1)
 
-c2 = Convolution2D(64, 5, 5, border_mode='same')(bn1)
+c2 = Convolution2D(128, 5, 5, border_mode='same')(bn1)
 a2 = Activation('relu')(c2)
 mp2 = MaxPooling2D(pool_size=(2, 2), strides=(2, 2), border_mode='same')(a2)
 do2 = Dropout(0.25)(mp2)
 bn2 = BatchNormalization()(do2)
 
-c3 = Convolution2D(128, 5, 5, border_mode='same')(bn2)
+c3 = Convolution2D(192, 5, 5, border_mode='same')(bn2)
 a3 = Activation('relu')(c3)
 mp3 = MaxPooling2D(pool_size=(2, 2), strides=(1, 1), border_mode='same')(a3)
 do3 = Dropout(0.25)(mp3)
 bn3 = BatchNormalization()(do3)
 
-c4 = Convolution2D(160, 5, 5, border_mode='same')(bn3)
+c4 = Convolution2D(256, 5, 5, border_mode='same')(bn3)
 a4 = Activation('relu')(c4)
 mp4 = MaxPooling2D(pool_size=(2, 2), strides=(2, 2), border_mode='same')(a4)
 do4 = Dropout(0.25)(mp4)
@@ -83,7 +83,7 @@ bn4 = BatchNormalization()(do4)
 
 fl = Flatten()(bn4)
 
-d1 = Dense(1024)(fl)
+d1 = Dense(3096)(fl)
 a9 = Activation('relu')(d1)
 do9 = Dropout(0.25)(a9)
 bn9 = BatchNormalization()(do9)
@@ -119,7 +119,7 @@ clf.compile(loss='categorical_crossentropy', optimizer='adadelta',
 
 clf.fit(train_dataset, [train_sequences, train_labels[:,:,0], train_labels[:,:,1], train_labels[:,:,2], 
                         train_labels[:,:,3], train_labels[:,:,4]], 
-                        batch_size=100, nb_epoch=100, validation_split=0.03, verbose=2)
+                        batch_size=256, nb_epoch=50, validation_split=0.03, verbose=2)
 
 clf.save('SVHN-1.h5')
 print "Training complete."
