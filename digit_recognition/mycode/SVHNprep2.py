@@ -10,12 +10,12 @@ with open(pickle_file, 'rb') as f:
   test_dictionary = save['test_dictionary']
   del save  # hint to help gc free up memory
 
-print("Train dictionary:", len(train_dictionary))
-print("Test dictionary:", len(test_dictionary))
+print "Train dictionary:", len(train_dictionary)
+print "Test dictionary:", len(test_dictionary)
 
 train_dataset, train_labels, train_sequences = genSVHN.generateData('train', train_dictionary, crop=True)
 test_dataset, test_labels, test_sequences = genSVHN.generateData('test', test_dictionary, crop=True)
-print("Done.")
+print "Done."
 
 pickle_file = 'SVHN-1.pickle'
 
@@ -36,4 +36,4 @@ except Exception as e:
     raise
     
 statinfo = os.stat(pickle_file)
-print('Compressed pickle size:', statinfo.st_size)
+print 'Compressed pickle size:', statinfo.st_size

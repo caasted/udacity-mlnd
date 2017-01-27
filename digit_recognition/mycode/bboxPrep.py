@@ -10,12 +10,12 @@ with open(pickle_file, 'rb') as f:
   test_dictionary = save['test_dictionary']
   del save  # hint to help gc free up memory
 
-print("Train dictionary:", len(train_dictionary))
-print("Test dictionary:", len(test_dictionary))
+print "Train dictionary:", len(train_dictionary)
+print "Test dictionary:", len(test_dictionary)
 
 train_dataset, train_labels, train_sequences, train_bboxes = genBBox.generateData('train', train_dictionary)
 test_dataset, test_labels, test_sequences, test_bboxes = genBBox.generateData('test', test_dictionary)
-print("Done.")
+print "Done."
 
 pickle_file = 'SVHN-BB-1.pickle'
 try:
@@ -36,8 +36,8 @@ try:
     pickle.dump(save, f, pickle.HIGHEST_PROTOCOL)
     f.close()
 except Exception as e:
-    print('Unable to save data to', pickle_file, ':', e)
+    print 'Unable to save data to', pickle_file, ':', e
     raise
     
 statinfo = os.stat(pickle_file)
-print('Compressed pickle size:', statinfo.st_size)
+print 'Compressed pickle size:', statinfo.st_size

@@ -5,19 +5,19 @@ import os
 import genMNIST
 
 (X_train, y_train), (X_test, y_test) = mnist.load_data()
-print(X_train.shape, y_train.shape)
-print(X_test.shape, y_test.shape)
+print X_train.shape, y_train.shape
+print X_test.shape, y_test.shape
 
 new_train_dataset, new_train_labels, train_sequences = genMNIST.generateData(X_train, y_train, 1000000, 5)
 new_test_dataset, new_test_labels, test_sequences = genMNIST.generateData(X_test, y_test, 30000, 5)
 
-print("Generating sequence data complete.")
-print(new_train_dataset.shape, new_train_labels.shape, train_sequences.shape)
-print(new_test_dataset.shape, new_test_labels.shape, test_sequences.shape)
+print "Generating sequence data complete."
+print new_train_dataset.shape, new_train_labels.shape, train_sequences.shape
+print new_test_dataset.shape, new_test_labels.shape, test_sequences.shape
 
-print(np.sum(new_train_labels, axis=0)) # Check distribution of classes
-print("\n")
-print(np.sum(train_sequences, axis=0)) # Check distribution of sequence lengths
+print np.sum(new_train_labels, axis=0) # Check distribution of classes
+print "\n"
+print np.sum(train_sequences, axis=0) # Check distribution of sequence lengths
 
 pickle_file = 'MNIST-1.pickle'
 try:
@@ -33,8 +33,8 @@ try:
   pickle.dump(save, f, pickle.HIGHEST_PROTOCOL)
   f.close()
 except Exception as e:
-  print('Unable to save data to', pickle_file, ':', e)
+  print 'Unable to save data to', pickle_file, ':', e
   raise
     
 statinfo = os.stat(pickle_file)
-print('Compressed pickle size:', statinfo.st_size)
+print 'Compressed pickle size:', statinfo.st_size

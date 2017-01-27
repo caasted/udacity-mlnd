@@ -15,8 +15,8 @@ with open(pickle_file, 'rb') as f:
 	test_sequences = save['test_sequences']
 	del save  # hint to help gc free up memory
 
-print('Training set:', train_dataset.shape, train_labels.shape, train_sequences.shape)
-print('Test set:', test_dataset.shape, test_labels.shape, test_sequences.shape)
+print 'Training set:', train_dataset.shape, train_labels.shape, train_sequences.shape
+print 'Test set:', test_dataset.shape, test_labels.shape, test_sequences.shape
 
 # Model adapted from "VGG-like convnet" at https://keras.io/getting-started/sequential-model-guide/
 # and extended to mimic the Google Mult-digit classifier
@@ -116,4 +116,4 @@ clf.fit(train_dataset, [train_sequences, train_labels[:,:,0], train_labels[:,:,1
                         nb_epoch=14, validation_split=0.03, verbose=2)
 
 clf.save('MNIST-1.h5')
-
+print "Training complete."

@@ -23,14 +23,14 @@ num_channels = 1
 num_labels = 11
 max_sequence_length=5
 
-print('Training set', train_dataset.shape, train_labels.shape, train_sequences.shape)
-print('Test set', test_dataset.shape, test_labels.shape, test_sequences.shape)
+print 'Training set', train_dataset.shape, train_labels.shape, train_sequences.shape
+print 'Test set', test_dataset.shape, test_labels.shape, test_sequences.shape
 
-print('Training sequence distribution:', sum(train_sequences))
-print('Testing sequence distribution:', sum(test_sequences))
+print 'Training sequence distribution:', sum(train_sequences)
+print 'Testing sequence distribution:', sum(test_sequences)
 
-print('\n\n', sum(train_labels))
-print('\n\n', sum(test_labels))
+print '\n\n', sum(train_labels)
+print '\n\n', sum(test_labels)
 
 inputs = Input(shape=(num_channels, image_size, image_size))
 
@@ -122,4 +122,4 @@ clf.fit(train_dataset, [train_sequences, train_labels[:,:,0], train_labels[:,:,1
                         batch_size=100, nb_epoch=250, validation_split=0.03, verbose=2)
 
 clf.save('SVHN-1.h5')
-print("Training complete.")
+print "Training complete."

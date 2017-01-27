@@ -26,17 +26,17 @@ num_labels = 11
 max_sequence_length = 5
 bbox_dims = 5
 
-print('Training set', train_dataset.shape, train_labels.shape, train_sequences.shape, train_bboxes.shape)
-print('Test set', test_dataset.shape, test_labels.shape, test_sequences.shape, test_bboxes.shape)
+print 'Training set', train_dataset.shape, train_labels.shape, train_sequences.shape, train_bboxes.shape
+print 'Test set', test_dataset.shape, test_labels.shape, test_sequences.shape, test_bboxes.shape
 
-print('Training sequence distribution:', sum(train_sequences))
-print('Testing sequence distribution:', sum(test_sequences))
+print 'Training sequence distribution:', sum(train_sequences)
+print 'Testing sequence distribution:', sum(test_sequences)
 
-print('\n\n', sum(train_labels))
-print('\n\n', sum(test_labels))
+print '\n\n', sum(train_labels)
+print '\n\n', sum(test_labels)
 
-print('\n\nTrain bounding box means:', np.mean(train_bboxes))
-print('Test bounding box means:', np.mean(test_bboxes))
+print '\n\nTrain bounding box means:', np.mean(train_bboxes)
+print 'Test bounding box means:', np.mean(test_bboxes)
 
 inputs = Input(shape=(num_channels, image_size, image_size))
 
@@ -134,4 +134,4 @@ clf.fit(train_dataset, [train_sequences, train_labels[:,:,0], train_labels[:,:,1
 
 clf.save('SVHN-BB-1.h5')
 
-print("Training complete.")
+print "Training complete."

@@ -30,7 +30,7 @@ def generateData(folder, dictionary):
         if label_sequence != None and len(label_sequence) > max_sequence_length:
             label_sequence = None
             skipped_images += 1
-            print("Image", image, "has too many digits!")
+            print "Image", image, "has too many digits!"
         
         if label_sequence != None and len(label_sequence) > 0:
             image_file = os.path.join(folder, image)
@@ -50,7 +50,7 @@ def generateData(folder, dictionary):
                 image_data = image_raw[min(tops):max(bottoms), min(lefts):max(rights)]
             else:
                 image_data = image_raw
-                print("Bounding box error!")
+                print "Bounding box error!"
             
             if min(image_data.shape) > 0:
                 resized_image = imresize(image_data, (image_size, image_size), interp='bilinear')
@@ -80,9 +80,9 @@ def generateData(folder, dictionary):
                 num_images += 1
             else:
                 skipped_images += 1
-                print("Skipped zero-size bbox image:", image)
+                print "Skipped zero-size bbox image:", image
                                     
-    print('\nSkipped images:', skipped_images)
+    print '\nSkipped images:', skipped_images
     # print('Full dataset tensor:', dataset.shape)
     # print('Mean:', np.mean(dataset))
     # print('Standard deviation:', np.std(dataset), "\n")

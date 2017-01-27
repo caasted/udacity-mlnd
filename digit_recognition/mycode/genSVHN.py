@@ -28,7 +28,7 @@ def generateData(folder, dictionary, crop=False):
         if label_sequence != None and len(label_sequence) > max_sequence_length:
             label_sequence = None
             skipped_images += 1
-            print("Image", image, "has too many digits!")
+            print "Image", image, "has too many digits!"
         
         if label_sequence != None and len(label_sequence) > 0:
             image_file = os.path.join(folder, image)
@@ -71,12 +71,12 @@ def generateData(folder, dictionary, crop=False):
             else:
                 skipped_images += 1
 
-                print("Skipped zero-size bbox image:", image)
+                print "Skipped zero-size bbox image:", image
         
-    print('\nSkipped images:', skipped_images)
-    print('Full dataset tensor:', dataset.shape)
-    print('Mean:', np.mean(dataset))
-    print('Standard deviation:', np.std(dataset), "\n")
+    print '\nSkipped images:', skipped_images
+    print 'Full dataset tensor:', dataset.shape
+    print 'Mean:', np.mean(dataset)
+    print 'Standard deviation:', np.std(dataset), "\n"
 
     dataset = dataset[0:num_images, :, :, :]
     labels = labels[0:num_images, :, :]

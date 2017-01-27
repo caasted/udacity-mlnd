@@ -85,7 +85,7 @@ def generateData(folder):
     #34
     sequences[7, 1] = 1
     
-    print(num_images)
+    print "Images loaded:", num_images
 
     return dataset, labels, sequences
 
