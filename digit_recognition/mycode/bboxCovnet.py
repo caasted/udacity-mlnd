@@ -89,7 +89,7 @@ bn4 = BatchNormalization()(do4)
 
 fl = Flatten()(bn4)
 
-d1 = Dense(3096)(fl)
+d1 = Dense(256)(fl)
 a9 = Activation('relu')(d1)
 do9 = Dropout(0.25)(a9)
 bn9 = BatchNormalization()(do9)
@@ -130,7 +130,7 @@ clf.compile(loss=['categorical_crossentropy', 'categorical_crossentropy', 'categ
 
 clf.fit(train_dataset, [train_sequences, train_labels[:,:,0], train_labels[:,:,1], train_labels[:,:,2], 
                         train_labels[:,:,3], train_labels[:,:,4], train_bboxes], 
-                        batch_size=100, nb_epoch=250, validation_split=0.03, verbose=2)
+                        batch_size=256, nb_epoch=100, validation_split=0.03, verbose=2)
 
 clf.save('SVHN-BB-1.h5')
 
