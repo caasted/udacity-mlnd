@@ -55,16 +55,16 @@ def prepData():
 		print "Test samples:", test_samples
 
 		try:
-				f = open(pickle_file, 'wb')
-				save = {
-						'train_dictionary': train_dictionary,
-						'test_dictionary': test_dictionary,
-				}
-				pickle.dump(save, f, pickle.HIGHEST_PROTOCOL)
-				f.close()
+			f = open(pickle_file, 'wb')
+			save = {
+				'train_dictionary': train_dictionary,
+				'test_dictionary': test_dictionary,
+			}
+			pickle.dump(save, f, pickle.HIGHEST_PROTOCOL)
+			f.close()
 		except Exception as e:
-				print 'Unable to save data to', pickle_file, ':', e
-				raise
+			print 'Unable to save data to', pickle_file, ':', e
+			raise
 			
 	statinfo = os.stat(pickle_file)
 	print 'Compressed pickle size:', statinfo.st_size

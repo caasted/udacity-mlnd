@@ -15,7 +15,7 @@ def evaluate():
 		del save  # hint to help gc free up memory
 
 	clf = load_model('MNIST-1.h5')
-	evaluate = clf.evaluate(test_dataset, [test_sequences, test_labels[:,:,0], test_labels[:,:,1], 
+	result = clf.evaluate(test_dataset, [test_sequences, test_labels[:,:,0], test_labels[:,:,1], 
 	                            test_labels[:,:,2], test_labels[:,:,3], test_labels[:,:,4]])
-	print "\n", evaluate
+	print "\n", result
 	print "\nAccuracy on test set:", modelEval.accuracy(clf, test_dataset, test_sequences, test_labels)
