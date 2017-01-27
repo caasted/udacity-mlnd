@@ -13,8 +13,8 @@ with open(pickle_file, 'rb') as f:
 print "Train dictionary:", len(train_dictionary)
 print "Test dictionary:", len(test_dictionary)
 
-train_dataset, train_labels, train_sequences = genSVHN.generateData('train', train_dictionary, crop=True)
-test_dataset, test_labels, test_sequences = genSVHN.generateData('test', test_dictionary, crop=True)
+train_dataset, train_labels, train_sequences, train_bboxes = genSVHN.generateData('train', train_dictionary)
+test_dataset, test_labels, test_sequences, test_bboxes = genSVHN.generateData('test', test_dictionary)
 print "Done."
 
 pickle_file = 'SVHN-1.pickle'
@@ -25,14 +25,16 @@ try:
         'train_dataset': train_dataset,
         'train_labels': train_labels,
         'train_sequences': train_sequences,
+        'train_bboxes': train_bboxes,
         'test_dataset': test_dataset,
         'test_labels': test_labels,
         'test_sequences': test_sequences,
+        'test_bboxes': test_bboxes,
     }
     pickle.dump(save, f, pickle.HIGHEST_PROTOCOL)
     f.close()
 except Exception as e:
-    print('Unable to save data to', pickle_file, ':', e)
+    print 'Unable to save data to', pickle_file, ':', e
     raise
     
 statinfo = os.stat(pickle_file)
