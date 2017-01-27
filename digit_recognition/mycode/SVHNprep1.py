@@ -40,18 +40,19 @@ def prepData():
 	train_folders = extract(train_filename)
 	test_folders = extract(test_filename)
 
-	print "Creating dictionaries from digitStruct files."
-	train_struct = h5py.File('train/digitStruct.mat')
-	train_dictionary, train_samples = genSVHNdict.createDictionary(train_struct)
-	print "Train dictionary complete."
-	print "Train samples:", train_samples
-
-	test_struct = h5py.File('test/digitStruct.mat')
-	test_dictionary, test_samples = genSVHNdict.createDictionary(test_struct)
-	print "Test dictionary complete."
-	print "Test samples:", test_samples
-
 	pickle_file = 'SVHN-dictionaries.pickle'
+
+	if not os.path.exists(pickle_file):
+		print "Creating dictionaries from digitStruct files."
+		train_struct = h5py.File('train/digitStruct.mat')
+		train_dictionary, train_samples = genSVHNdict.createDictionary(train_struct)
+		print "Train dictionary complete."
+		print "Train samples:", train_samples
+
+		test_struct = h5py.File('test/digitStruct.mat')
+		test_dictionary, test_samples = genSVHNdict.createDictionary(test_struct)
+		print "Test dictionary complete."
+		print "Test samples:", test_samples
 
 	try:
 			f = open(pickle_file, 'wb')

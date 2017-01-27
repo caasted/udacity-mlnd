@@ -23,16 +23,14 @@ def evaluate(bboxes=False):
 		evaluate = clf.evaluate(test_dataset, [test_sequences, test_labels[:,:,0], test_labels[:,:,1], 
 		                            test_labels[:,:,2], test_labels[:,:,3], test_labels[:,:,4], test_bboxes])
 		print "\n", evaluate
-		print "\nAgainst test dataset"
-		print "\n", modelEval.accuracy(clf, test_dataset, test_sequences, test_labels)
+		print "\nAccuracy on test set:", modelEval.accuracy(clf, test_dataset, test_sequences, test_labels)
 
 		photos_dataset, photos_labels, photos_sequences = genNew.generateData('photos')
-		print "\nAgainst photos dataset"
-		print "\n", modelEval.accuracy(clf, photos_dataset, photos_sequences, photos_labels)
+		print "\nAccuracy on photos:", modelEval.accuracy(clf, photos_dataset, photos_sequences, photos_labels)
 
 	else:
 		clf = load_model('SVHN-1.h5')
 		evaluate = clf.evaluate(test_dataset, [test_sequences, test_labels[:,:,0], test_labels[:,:,1], 
 		                            test_labels[:,:,2], test_labels[:,:,3], test_labels[:,:,4]])
 		print "\n", evaluate
-		print "\n", modelEval.accuracy(clf, test_dataset, test_sequences, test_labels)
+		print "\nAccuracy on test set:", modelEval.accuracy(clf, test_dataset, test_sequences, test_labels)
