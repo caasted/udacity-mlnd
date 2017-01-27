@@ -21,9 +21,9 @@ evaluate = clf.evaluate(test_dataset, [test_sequences, test_labels[:,:,0], test_
                             test_labels[:,:,2], test_labels[:,:,3], test_labels[:,:,4], test_bboxes])
 print("\n", evaluate)
 print("\nAgainst test dataset")
-print("\n", accuracy(clf, test_dataset, test_sequences, test_labels))
+print("\n", modelEval.accuracy(clf, test_dataset, test_sequences, test_labels))
 
 photos_dataset, photos_labels, photos_sequences = genNew.generateData('photos')
 
 print("\nAgainst photos dataset")
-print("\n", accuracy(clf, photos_dataset, photos_sequences, photos_labels))
+print("\n", modelEval.accuracy(clf, photos_dataset, photos_sequences, photos_labels))
