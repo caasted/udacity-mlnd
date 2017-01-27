@@ -1,7 +1,7 @@
 from keras.models import Model, load_model
 from six.moves import cPickle as pickle
 import modelEval
-import genNew
+import genPhotos
 
 def evaluate(bboxes=False):
 	pickle_file = 'SVHN-1.pickle'
@@ -25,7 +25,7 @@ def evaluate(bboxes=False):
 		print "\n", result
 		print "\nAccuracy on test set:", modelEval.accuracy(clf, test_dataset, test_sequences, test_labels)
 
-		photos_dataset, photos_labels, photos_sequences = genNew.generateData('photos')
+		photos_dataset, photos_labels, photos_sequences = genPhotos.generateData('photos')
 		print "\nAccuracy on photos:", modelEval.accuracy(clf, photos_dataset, photos_sequences, photos_labels)
 
 	else:
