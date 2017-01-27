@@ -72,7 +72,7 @@ mp8 = MaxPooling2D(pool_size=(2, 2), strides=(2, 2), border_mode='same')(a8)
 do8 = Dropout(0.25)(mp8)
 bn8 = BatchNormalization()(do8)
 
-fl = Flatten()(bn4)
+fl = Flatten()(bn8)
 
 d1 = Dense(3096)(fl)
 a9 = Activation('relu')(d1)
@@ -109,8 +109,8 @@ clf.compile(loss='categorical_crossentropy', optimizer='adadelta',
             metrics=['categorical_accuracy'])
 
 clf.fit(train_dataset, [train_sequences, train_labels[:,:,0], train_labels[:,:,1], train_labels[:,:,2], 
-                        train_labels[:,:,3], train_labels[:,:,4]], batch_size=256, 
-                        nb_epoch=3, validation_split=0.06, verbose=2)
+                        train_labels[:,:,3], train_labels[:,:,4]], 
+                        batch_size=256, nb_epoch=3, validation_split=0.06, verbose=2)
 
 clf.save('MNIST-1.h5')
 print "Training complete."
