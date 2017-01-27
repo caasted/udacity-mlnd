@@ -8,7 +8,14 @@ import genMNIST
 print X_train.shape, y_train.shape
 print X_test.shape, y_test.shape
 
-new_train_dataset, new_train_labels, train_sequences = genMNIST.generateData(X_train, y_train, 500000, 5)
+# Convert to float
+X_train = X_train.astype('float32')
+X_test = X_test.astype('float32')
+# Fit to range [0, 1]
+X_train /= 255.
+X_test /= 255.
+
+new_train_dataset, new_train_labels, train_sequences = genMNIST.generateData(X_train, y_train, 100000, 5)
 new_test_dataset, new_test_labels, test_sequences = genMNIST.generateData(X_test, y_test, 30000, 5)
 
 print "Generating sequence data complete."

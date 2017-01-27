@@ -5,7 +5,7 @@ from scipy.misc import imresize
 
 def generateData(folder, dictionary):
     
-    image_size = 54
+    image_size = 64
     pixel_channels = 1
     max_sequence_length = 5
     num_labels = 11
@@ -34,7 +34,7 @@ def generateData(folder, dictionary):
         
         if label_sequence != None and len(label_sequence) > 0:
             image_file = os.path.join(folder, image)
-            image_raw = ndimage.imread(image_file, flatten=True)
+            image_raw = (ndimage.imread(image_file, flatten=True).astype(float) - pixel_depth / 2) / pixel_depth
             
             lefts = dictionary[image]['left']
             tops = dictionary[image]['top']

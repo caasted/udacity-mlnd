@@ -6,9 +6,9 @@ def generateData(source_data, source_labels, sequences, max_sequence_length=5, o
     num_labels = 11 # 0-9 + blank
     image_size = 64
 
-    new_dataset = np.ndarray((sequences, 1, image_size, image_size), dtype=np.int8)
-    new_labels = np.ndarray((sequences, num_labels, max_sequence_length), dtype=np.int8)
-    sequence_lengths = np.ndarray((sequences, max_sequence_length), dtype=np.int8)
+    new_dataset = np.ndarray((sequences, 1, image_size, image_size), dtype=np.float32)
+    new_labels = np.ndarray((sequences, num_labels, max_sequence_length), dtype=np.bool_)
+    sequence_lengths = np.ndarray((sequences, max_sequence_length), dtype=np.bool_)
     
     random_lengths = np.random.randint(1, max_sequence_length + 1, sequences)
     for sequence in range(sequences):

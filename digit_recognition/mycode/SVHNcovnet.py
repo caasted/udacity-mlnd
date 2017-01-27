@@ -6,7 +6,7 @@ import numpy as np
 from six.moves import cPickle as pickle
 import h5py
 
-def trainCovnet(batch_size=256, nb_epoch=3, validation_split=0.06, verbose=2, dense_layer_nodes=3096):
+def trainCovnet(batch_size=256, nb_epoch=3, validation_split=0.03, verbose=2, dense_layer_nodes=3096):
 	pickle_file = 'SVHN-1.pickle'
 	with open(pickle_file, 'rb') as f:
 		save = pickle.load(f)
